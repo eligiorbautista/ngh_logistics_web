@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/ngh-logo.png";
+import { toast } from "sonner";
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,8 @@ const Registration = () => {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -25,7 +28,19 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+    if (isTermsAccepted) {
+      navigate("/dashboard");
+    } else {
+      toast.info("You must accept the terms and policy to register.");
+    }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -203,6 +218,33 @@ const Registration = () => {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </div>
+          </div>
+          <div className="flex items-start">
+            <input
+              id="terms"
+              name="terms"
+              type="checkbox"
+              className="w-4 h-4 text-[#1F3987] border-gray-300 rounded focus:ring-[#1F3987] mt-1"
+              checked={isTermsAccepted}
+              onChange={(e) => setIsTermsAccepted(e.target.checked)}
+            />
+            <label
+              htmlFor="terms"
+              className="ml-2 text-sm text-gray-900 text-start"
+            >
+              By completing your registration, you acknowledge and agree to our{" "}
+              <button
+                type="button"
+                onClick={() => {
+                  toast.info("This feature is not available yet.");
+                }}
+                className="text-[#1F3987] hover:text-[#1F3987] underline"
+              >
+                terms and policy
+              </button>
+              . You may receive email notifications from us and can opt out at
+              any time.
+            </label>
           </div>
           <div>
             <button

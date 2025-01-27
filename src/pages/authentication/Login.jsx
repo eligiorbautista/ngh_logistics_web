@@ -14,7 +14,7 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     navigate("/dashboard");
   };
 
@@ -81,8 +81,8 @@ const Login = () => {
               )}
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+          <div className="flex items-center justify-end gap-31 ">
+            <div className="flex items-center hidden sm:flex">
               <input
                 id="remember-me"
                 name="remember-me"

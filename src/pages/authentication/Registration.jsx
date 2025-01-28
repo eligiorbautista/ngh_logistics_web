@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/ngh-logo.png";
-import { toast } from "sonner";
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +30,7 @@ const Registration = () => {
     if (isTermsAccepted) {
       navigate("/dashboard");
     } else {
-      toast.info("You must accept the terms and policy to register.");
+      alert("You must accept the terms and policy to register.");
     }
   };
 
@@ -45,7 +44,7 @@ const Registration = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-2xl p-8 space-y-8 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-2xl sm:p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg">
         <div className="flex items-center justify-center space-x-3">
           <img src={logo} alt="Logo" className="w-20 h-20" />
           <div className="text-left">
@@ -71,7 +70,7 @@ const Registration = () => {
                 autoComplete="given-name"
                 required
                 placeholder="Enter your first name"
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -90,7 +89,7 @@ const Registration = () => {
                 autoComplete="family-name"
                 required
                 placeholder="Enter your last name"
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -109,7 +108,7 @@ const Registration = () => {
                 autoComplete="email"
                 required
                 placeholder="Enter your email address"
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -128,7 +127,7 @@ const Registration = () => {
                 autoComplete="tel"
                 required
                 placeholder="Enter your phone number"
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
@@ -148,7 +147,7 @@ const Registration = () => {
                   autoComplete="new-password"
                   required
                   placeholder="Enter your password"
-                  className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                  className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -181,7 +180,7 @@ const Registration = () => {
                   autoComplete="new-password"
                   required
                   placeholder="Confirm your password"
-                  className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                  className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -213,7 +212,7 @@ const Registration = () => {
                 required
                 rows={3}
                 placeholder="Enter your address"
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -235,9 +234,7 @@ const Registration = () => {
               By completing your registration, you acknowledge and agree to our{" "}
               <button
                 type="button"
-                onClick={() => {
-                  toast.info("This feature is not available yet.");
-                }}
+                onClick={openModal}
                 className="text-[#1F3987] hover:text-[#1F3987] underline"
               >
                 terms and policy
@@ -265,6 +262,51 @@ const Registration = () => {
           </a>
         </div>
       </div>
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#00000090] ">
+          <div className="bg-white p-6 rounded-md shadow-lg max-w-lg w-full">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold">Terms and Policy</h2>
+              <button onClick={closeModal} className="text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="overflow-y-auto max-h-96 px-5">
+              <p className="text-sm text-gray-700 mb-4">
+                By using our services, you agree to the following terms and conditions:
+              </p>
+              <h3 className="text-lg font-semibold">1. Acceptance of Terms</h3>
+              <p className="text-sm text-gray-700 mb-4">
+                By accessing and using our services, you accept and agree to be bound by the terms and provision of this agreement.
+              </p>
+              <h3 className="text-lg font-semibold">2. Privacy Policy</h3>
+              <p className="text-sm text-gray-700 mb-4">
+                We are committed to protecting your privacy. Our privacy policy explains how we collect, use, and disclose information about you.
+              </p>
+              <h3 className="text-lg font-semibold">3. User Responsibilities</h3>
+              <p className="text-sm text-gray-700 mb-4">
+                You are responsible for your use of our services and for any consequences thereof. You agree to use our services in compliance with all applicable laws and regulations.
+              </p>
+              <h3 className="text-lg font-semibold">4. Limitation of Liability</h3>
+              <p className="text-sm text-gray-700 mb-4">
+                We shall not be liable for any damages or losses arising from your use of our services.
+              </p>
+              <h3 className="text-lg font-semibold">5. Changes to Terms</h3>
+              <p className="text-sm text-gray-700 mb-4">
+                We reserve the right to modify these terms at any time. Your continued use of our services after any such changes constitutes your acceptance of the new terms.
+              </p>
+            </div>
+            <button
+              onClick={closeModal}
+              className="mt-4 px-4 py-2 bg-[#1F3987] text-white rounded-md hover:bg-[#1F3987] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1F3987]"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

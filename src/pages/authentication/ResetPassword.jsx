@@ -17,12 +17,12 @@ const ResetPassword = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-md sm:p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg">
         <div className="flex items-center justify-center space-x-3">
           <img src={logo} alt="Logo" className="w-20 h-20" />
           <div className="text-left">
@@ -46,9 +46,9 @@ const ResetPassword = () => {
                 name="password"
                 type={showPassword ? "text" : "password"}
                 autoComplete="new-password"
-                required
                 placeholder="Enter your new password"
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                required
+                className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -71,7 +71,7 @@ const ResetPassword = () => {
               htmlFor="confirm-password"
               className="block text-sm font-medium text-gray-700 text-left"
             >
-              Confirm Password
+              Confirm New Password
             </label>
             <div className="relative">
               <input
@@ -79,9 +79,9 @@ const ResetPassword = () => {
                 name="confirm-password"
                 type={showConfirmPassword ? "text" : "password"}
                 autoComplete="new-password"
-                required
                 placeholder="Confirm your new password"
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
+                required
+                className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/ngh-logo.png";
+import logo from "../../assets/logo.png";
 
 const Maintenance = () => {
   const navigate = useNavigate();

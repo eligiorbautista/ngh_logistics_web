@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/ngh-logo.png";
+import logo from "../../assets/logo.png";
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);

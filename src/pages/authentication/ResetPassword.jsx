@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import logo from "../../assets/ngh-logo.png";
+import logo from "../../assets/logo.png";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);

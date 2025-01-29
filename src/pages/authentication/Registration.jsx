@@ -44,7 +44,7 @@ const Registration = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-2xl sm:p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg">
+      <div className="w-full max-w-2xl p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg">
         <div className="flex items-center justify-center space-x-3">
           <img src={logo} alt="Logo" className="w-20 h-20" />
           <div className="text-left">

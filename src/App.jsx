@@ -25,7 +25,6 @@ function App() {
         {/* Protected Routes */}
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* Add more routes here */}
         </Route>
       </Routes>
     </Router>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import logo from "../../assets/logo.png";
 
 const ForgotPassword = () => {
@@ -10,7 +11,12 @@ const ForgotPassword = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg">
+      <motion.div
+        className="w-full max-w-md p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
         <div className="flex items-center justify-center space-x-3">
           <img src={logo} alt="Logo" className="w-20 h-20" />
           <div className="text-left">
@@ -58,7 +64,7 @@ const ForgotPassword = () => {
             Log In
           </a>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

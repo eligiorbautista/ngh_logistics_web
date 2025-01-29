@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import logo from "../../assets/logo.png";
 
 const Registration = () => {
@@ -44,7 +45,12 @@ const Registration = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-2xl p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg">
+      <motion.div
+        className="w-full max-w-2xl p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
         <div className="flex items-center justify-center space-x-3">
           <img src={logo} alt="Logo" className="w-20 h-20" />
           <div className="text-left">
@@ -261,10 +267,20 @@ const Registration = () => {
             Log In
           </a>
         </div>
-      </div>
+      </motion.div>
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#00000090] ">
-          <div className="bg-white p-6 rounded-md shadow-lg max-w-lg w-full">
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#00000090]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            className="bg-white p-6 rounded-md shadow-lg max-w-lg w-full"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold">Terms and Policy</h2>
               <button onClick={closeModal} className="text-gray-500 hover:text-gray-700">
@@ -304,8 +320,8 @@ const Registration = () => {
             >
               Close
             </button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );

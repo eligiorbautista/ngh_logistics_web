@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import logo from "../../assets/logo.png";
 
 const OTP = () => {
@@ -31,7 +32,12 @@ const OTP = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg">
+      <motion.div
+        className="w-full max-w-md p-8 space-y-8 sm:bg-white sm:rounded-lg sm:shadow-lg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
         <div className="flex items-center justify-center space-x-3">
           <img src={logo} alt="Logo" className="w-20 h-20" />
           <div className="text-left">
@@ -55,7 +61,7 @@ const OTP = () => {
               type="text"
               autoComplete="one-time-code"
               required
-              placeholder="Enter the OTP sent to your email"
+              placeholder="Enter the OTP"
               className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
@@ -75,20 +81,12 @@ const OTP = () => {
           <button
             onClick={handleResendOtp}
             disabled={isResendDisabled}
-            className={`font-medium cursor-pointer${
-              isResendDisabled
-                ? "cursor-wait text-gray-400"
-                : " text-[#1F3987] hover:text-[#1F3987] "
-            }`}
+            className="font-medium text-[#1F3987] hover:text-[#1F3987] disabled:opacity-50"
           >
-            {isResendDisabled
-              ? `Resend OTP in ${Math.floor(timer / 60)}:${
-                  timer % 60 < 10 ? `0${timer % 60}` : timer % 60
-                }`
-              : "Resend OTP"}
+            Resend OTP {isResendDisabled && `(${timer}s)`}
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

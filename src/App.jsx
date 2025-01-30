@@ -9,12 +9,13 @@ import Maintenance from "./pages/error/Maintenance";
 import NotFound from "./pages/error/NotFound";
 import MainLayout from "./layout/MainLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Settings from "./pages/dashboard/Settings";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route index path="/" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -25,6 +26,7 @@ function App() {
         {/* Protected Routes */}
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>

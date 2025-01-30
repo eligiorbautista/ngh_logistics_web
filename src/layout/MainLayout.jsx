@@ -13,6 +13,7 @@ import {
   X,
   User,
   HelpCircle,
+  Bell,
 } from "lucide-react";
 import profile from "../assets/profile.jpg";
 import logo from "../assets/logo.png";
@@ -20,10 +21,12 @@ import logo from "../assets/logo.png";
 const MainLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [notificationMenuOpen, setNotificationMenuOpen] = useState(false); // State for notification dropdown
   const [searchOpen, setSearchOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const drawerRef = useRef(null);
   const profileMenuRef = useRef(null);
+  const notificationMenuRef = useRef(null); // Reference for notification menu
   const searchRef = useRef(null);
 
   const toggleDrawer = () => {
@@ -32,6 +35,10 @@ const MainLayout = () => {
 
   const toggleProfileMenu = () => {
     setProfileMenuOpen(!profileMenuOpen);
+  };
+
+  const toggleNotificationMenu = () => {
+    setNotificationMenuOpen(!notificationMenuOpen);
   };
 
   const toggleSearch = () => {
@@ -47,6 +54,12 @@ const MainLayout = () => {
       !profileMenuRef.current.contains(event.target)
     ) {
       setProfileMenuOpen(false);
+    }
+    if (
+      notificationMenuRef.current &&
+      !notificationMenuRef.current.contains(event.target)
+    ) {
+      setNotificationMenuOpen(false);
     }
     if (searchRef.current && !searchRef.current.contains(event.target)) {
       setSearchOpen(false);
@@ -192,7 +205,7 @@ const MainLayout = () => {
               )}
             </div>
 
-            {/* Admin Profile and Search Icon */}
+            {/* Admin Profile, Notification Icon, and Search Icon */}
             <div className="flex items-center relative">
               {isMobile && (
                 <div className="relative" ref={searchRef}>
@@ -218,6 +231,23 @@ const MainLayout = () => {
                 </div>
               )}
               <div className="relative flex items-center" ref={profileMenuRef}>
+                {/* Notification Icon */}
+                <div className="relative" ref={notificationMenuRef}>
+                  <button
+                    onClick={toggleNotificationMenu}
+                    className="flex items-center focus:outline-none mr-4"
+                  >
+                    <Bell className="w-5 h-5 text-gray-500 cursor-pointer" />
+                  </button>
+                  {notificationMenuOpen && (
+                    <div className="absolute right-0 mt-7 w-64 bg-white rounded-lg shadow-lg py-2 z-100">
+                      <div className="px-4 py-2 text-gray-800">No new notifications</div>
+                      {/* Add more notification items here */}
+                    </div>
+                  )}
+                </div>
+
+                {/* Profile Icon and Menu */}
                 <img
                   src={profile}
                   alt="Admin"
@@ -231,15 +261,15 @@ const MainLayout = () => {
                     Eli Bautista
                   </span>
                   {profileMenuOpen ? (
-                    <ChevronUp className="w-5 h-5 text-gray-800 ml-1 cursor-pointer" />
+                    <ChevronUp className="w-5 h-5 text-gray-500 ml-1 cursor-pointer" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-800 ml-1 cursor-pointer" />
+                    <ChevronDown className="w-5 h-5 text-gray-500 ml-1 cursor-pointer" />
                   )}
                 </button>
 
                 {/* Profile Dropdown Menu */}
                 {profileMenuOpen && (
-                  <div className="absolute right-0 mt-65 w-48 bg-white rounded-lg shadow-lg py-2 z-100">
+                  <div className="absolute right-0 mt-64 w-48 bg-white rounded-lg shadow-lg py-2 z-100">
                     <Link
                       to="/profile"
                       className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center"

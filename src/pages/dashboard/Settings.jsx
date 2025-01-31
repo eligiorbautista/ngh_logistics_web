@@ -60,7 +60,7 @@ const Settings = () => {
                   className="w-full h-full rounded-full object-cover border-2 border-gray-300"
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm">Change</span>
+                  <span className="text-white text-sm">Update Profile</span>
                 </div>
               </label>
               <span className="text-sm text-gray-500 mt-2">

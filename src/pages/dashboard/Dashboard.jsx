@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Chart from "react-apexcharts";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { Menu } from 'lucide-react';
+import { Menu, Package, Truck, Box, ClipboardList } from 'lucide-react';
 
 const Dashboard = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -76,6 +76,10 @@ const Dashboard = () => {
     { id: 4, item: "Ventilators", quantity: 10, date: "2023-10-04" },
   ];
 
+  const totalDeliveries = recentDeliveries.length;
+  const totalItems = recentDeliveries.reduce((acc, delivery) => acc + delivery.quantity, 0);
+  const uniqueItems = new Set(recentDeliveries.map(delivery => delivery.item)).size;
+
   const downloadPDF = () => {
     const input = document.getElementById("recent-deliveries-table");
     html2canvas(input).then((canvas) => {
@@ -99,6 +103,29 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+        <div className="bg-white p-4 rounded shadow flex items-center">
+          <Package className="w-10 h-10 text-blue-500 mr-4" />
+          <div>
+            <h2 className="text-xl font-bold mb-2">Total Deliveries</h2>
+            <p className="text-2xl">{totalDeliveries}</p>
+          </div>
+        </div>
+        <div className="bg-white p-4 rounded shadow flex items-center">
+          <Box className="w-10 h-10 text-green-500 mr-4" />
+          <div>
+            <h2 className="text-xl font-bold mb-2">Total Items Delivered</h2>
+            <p className="text-2xl">{totalItems}</p>
+          </div>
+        </div>
+        <div className="bg-white p-4 rounded shadow flex items-center">
+          <ClipboardList className="w-10 h-10 text-purple-500 mr-4" />
+          <div>
+            <h2 className="text-xl font-bold mb-2">Total Unique Items</h2>
+            <p className="text-2xl">{uniqueItems}</p>
+          </div>
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="bg-white p-4 rounded shadow">
           <h2 className="text-xl font-bold mb-4">Supplies Delivered</h2>

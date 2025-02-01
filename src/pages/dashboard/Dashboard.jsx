@@ -1,23 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
 import Chart from "react-apexcharts";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import { Menu, Package, Truck, Box, ClipboardList } from "lucide-react";
 import {
-  AiFillEye,
-  AiFillEdit,
-  AiFillDelete,
-  AiOutlineSortAscending,
-  AiOutlineSortDescending,
   AiOutlineAppstore,
   AiOutlineTags,
   AiOutlineTeam,
+  AiFillProduct,
+  AiOutlineArrowDown,
+  AiOutlineArrowRight,
+  AiOutlineArrowUp,
 } from "react-icons/ai";
 
 const Dashboard = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
   const inventoryItems = [
     {
       id: 1,
@@ -121,23 +113,6 @@ const Dashboard = () => {
     (item) => item.quantity > 50
   ).length;
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   const barData = {
     series: [
       {
@@ -189,27 +164,6 @@ const Dashboard = () => {
     { id: 4, item: "Ventilators", quantity: 10, date: "2023-10-04" },
   ];
 
-  const downloadPDF = () => {
-    const input = document.getElementById("recent-deliveries-table");
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "PNG", 10, 10);
-      pdf.save("recent-deliveries.pdf");
-    });
-  };
-
-  const downloadPNG = () => {
-    const input = document.getElementById("recent-deliveries-table");
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = imgData;
-      link.download = "recent-deliveries.png";
-      link.click();
-    });
-  };
-
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -237,12 +191,16 @@ const Dashboard = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div className="bg-white p-4 rounded shadow flex items-center">
+          <AiOutlineArrowDown className="w-8 h-8 text-red-500 mr-4" />{" "}
+          {/* Low stock icon */}
           <div>
             <h3 className="text-lg font-semibold text-red-600">Low Stock</h3>
             <p className="text-2xl">{lowStockItems}</p>
           </div>
         </div>
         <div className="bg-white p-4 rounded shadow flex items-center">
+          <AiOutlineArrowRight className="w-8 h-8 text-yellow-500 mr-4" />{" "}
+          {/* Moderate stock icon */}
           <div>
             <h3 className="text-lg font-semibold text-yellow-600">
               Moderate Stock
@@ -251,14 +209,18 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="bg-white p-4 rounded shadow flex items-center">
+          <AiOutlineArrowUp className="w-8 h-8 text-green-500 mr-4" />{" "}
+          {/* High stock icon */}
           <div>
             <h3 className="text-lg font-semibold text-green-600">High Stock</h3>
             <p className="text-2xl">{highStockItems}</p>
           </div>
         </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div className="bg-white p-4 rounded shadow flex items-center">
+          <AiFillProduct className="w-8 h-8 text-blue-500 mr-4" />{" "}
           <div>
             <h3 className="text-lg font-semibold text-blue-600">A Category</h3>
             <p className="text-2xl">
@@ -267,6 +229,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="bg-white p-4 rounded shadow flex items-center">
+          <AiFillProduct className="w-8 h-8 text-purple-500 mr-4" />{" "}
           <div>
             <h3 className="text-lg font-semibold text-purple-600">
               B Category
@@ -281,6 +244,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="bg-white p-4 rounded shadow flex items-center">
+          <AiFillProduct className="w-8 h-8 text-gray-500 mr-4" />{" "}
           <div>
             <h3 className="text-lg font-semibold text-gray-600">C Category</h3>
             <p className="text-2xl">
@@ -319,30 +283,7 @@ const Dashboard = () => {
         </div>
         <div className="bg-white p-4 rounded shadow col-span-1 md:col-span-2 lg:col-span-3">
           <h2 className="text-xl font-bold mb-4">Recent Deliveries</h2>
-          <div className="flex justify-end mb-4 relative" ref={dropdownRef}>
-            <button
-              onClick={toggleDropdown}
-              className="text-gray-700 px-4 py-2 rounded"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
-            {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
-                <button
-                  onClick={downloadPDF}
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
-                >
-                  Download PDF
-                </button>
-                <button
-                  onClick={downloadPNG}
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
-                >
-                  Download PNG
-                </button>
-              </div>
-            )}
-          </div>
+
           <div className="overflow-x-auto" id="recent-deliveries-table">
             <table className="min-w-full bg-white divide-y divide-gray-200">
               <thead className="bg-gray-50">

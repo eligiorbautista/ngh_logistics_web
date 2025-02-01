@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import {
   Home,
   Box,
@@ -19,13 +19,15 @@ import logo from "../assets/logo.png";
 const MainLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const [notificationMenuOpen, setNotificationMenuOpen] = useState(false); 
+  const [notificationMenuOpen, setNotificationMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [searchTerm, setSearchTerm] = useState("");
   const drawerRef = useRef(null);
   const profileMenuRef = useRef(null);
   const notificationMenuRef = useRef(null);
   const searchRef = useRef(null);
+  const navigate = useNavigate();
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -77,6 +79,16 @@ const MainLayout = () => {
     };
   }, []);
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchKeyPress = (event) => {
+    if (event.key === "Enter") {
+      navigate(`/${searchTerm.toLowerCase()}`);
+    }
+  };
+
   const navigationItems = [
     {
       text: "Dashboard",
@@ -88,7 +100,6 @@ const MainLayout = () => {
       path: "/inventory",
       icon: <Box className="w-5 h-5 mr-2" />,
     },
-
     {
       text: "Settings",
       path: "/settings",
@@ -187,6 +198,9 @@ const MainLayout = () => {
                   <input
                     type="text"
                     placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    onKeyPress={handleSearchKeyPress}
                     className="bg-transparent focus:outline-none w-full md:w-auto"
                   />
                   <Search className="w-5 h-5 text-gray-500 cursor-pointer" />
@@ -213,6 +227,9 @@ const MainLayout = () => {
                       <input
                         type="text"
                         placeholder="Search..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        onKeyPress={handleSearchKeyPress}
                         className="bg-white block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-[#1F3987] focus:border-[#1F3987] sm:text-sm"
                       />
                     </div>

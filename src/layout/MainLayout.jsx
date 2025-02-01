@@ -3,8 +3,6 @@ import { Outlet, Link } from "react-router-dom";
 import {
   Home,
   Box,
-  BarChart2,
-  Activity,
   Settings,
   LogOut,
   ChevronDown,
@@ -21,12 +19,12 @@ import logo from "../assets/logo.png";
 const MainLayout = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const [notificationMenuOpen, setNotificationMenuOpen] = useState(false); // State for notification dropdown
+  const [notificationMenuOpen, setNotificationMenuOpen] = useState(false); 
   const [searchOpen, setSearchOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const drawerRef = useRef(null);
   const profileMenuRef = useRef(null);
-  const notificationMenuRef = useRef(null); // Reference for notification menu
+  const notificationMenuRef = useRef(null);
   const searchRef = useRef(null);
 
   const toggleDrawer = () => {
@@ -90,16 +88,7 @@ const MainLayout = () => {
       path: "/inventory",
       icon: <Box className="w-5 h-5 mr-2" />,
     },
-    {
-      text: "Statistics",
-      path: "/statistics",
-      icon: <BarChart2 className="w-5 h-5 mr-2" />,
-    },
-    {
-      text: "Demand Forecasting",
-      path: "/demand-forecasting",
-      icon: <Activity className="w-5 h-5 mr-2" />,
-    },
+
     {
       text: "Settings",
       path: "/settings",
@@ -125,7 +114,7 @@ const MainLayout = () => {
           <h2 className="text-lg font-semibold text-gray-800">Menu</h2>
           <button
             onClick={toggleDrawer}
-            className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 md:hidden"
+            className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 md:hidden cursor-pointer"
           >
             <svg
               className="w-6 h-6"
@@ -168,7 +157,7 @@ const MainLayout = () => {
             <div className="flex items-center">
               <button
                 onClick={toggleDrawer}
-                className="text-gray-600 hover:text-gray-900 focus:outline-none md:hidden"
+                className="text-gray-600 hover:text-gray-900 focus:outline-none md:hidden cursor-pointer"
               >
                 <svg
                   className="w-6 h-6"
@@ -200,7 +189,7 @@ const MainLayout = () => {
                     placeholder="Search..."
                     className="bg-transparent focus:outline-none w-full md:w-auto"
                   />
-                  <Search className="w-5 h-5 text-gray-500" />
+                  <Search className="w-5 h-5 text-gray-500 cursor-pointer" />
                 </div>
               )}
             </div>
@@ -214,9 +203,9 @@ const MainLayout = () => {
                     className="md:hidden flex items-center justify-center mr-2"
                   >
                     {searchOpen ? (
-                      <X className="w-5 h-5 text-gray-500" />
+                      <X className="w-5 h-5 text-gray-500 cursor-pointer" />
                     ) : (
-                      <Search className="w-5 h-5 text-gray-500" />
+                      <Search className="w-5 h-5 text-gray-500 cursor-pointer" />
                     )}
                   </button>
                   {searchOpen && (
@@ -241,8 +230,9 @@ const MainLayout = () => {
                   </button>
                   {notificationMenuOpen && (
                     <div className="absolute right-0 mt-7 w-64 bg-white rounded-lg shadow-lg py-2 z-100">
-                      <div className="px-4 py-2 text-gray-800">No new notifications</div>
-                      {/* Add more notification items here */}
+                      <div className="px-4 py-2 text-gray-800">
+                        No new notifications
+                      </div>
                     </div>
                   )}
                 </div>

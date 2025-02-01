@@ -10,6 +10,7 @@ import NotFound from "./pages/error/NotFound";
 import MainLayout from "./layout/MainLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Settings from "./pages/dashboard/Settings";
+import Inventory from "./pages/dashboard/Inventory";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/inventory" element={<Inventory />} />
         </Route>
       </Routes>
     </Router>

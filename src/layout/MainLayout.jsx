@@ -12,6 +12,7 @@ import {
   User,
   HelpCircle,
   Bell,
+  GitPullRequest,
 } from "lucide-react";
 import profile from "../assets/profile.jpg";
 import logo from "../assets/logo.png";
@@ -99,6 +100,11 @@ const MainLayout = () => {
       text: "Inventory",
       path: "/inventory",
       icon: <Box className="w-5 h-5 mr-2" />,
+    },
+    {
+      text: "Requests",
+      path: "/requests",
+      icon: <GitPullRequest className="w-5 h-5 mr-2" />,
     },
     {
       text: "Settings",

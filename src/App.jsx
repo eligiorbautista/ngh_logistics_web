@@ -11,6 +11,7 @@ import MainLayout from "./layout/MainLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Settings from "./pages/dashboard/Settings";
 import Inventory from "./pages/dashboard/Inventory";
+import Request from "./pages/dashboard/Request";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/inventory" element={<Inventory />} />
+          <Route path="/requests" element={<Request />} />
         </Route>
       </Routes>
     </Router>

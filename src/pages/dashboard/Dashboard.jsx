@@ -1,13 +1,13 @@
 import Chart from "react-apexcharts";
 import {
-  AiOutlineAppstore,
-  AiOutlineTags,
-  AiOutlineTeam,
   AiFillProduct,
   AiOutlineArrowDown,
   AiOutlineArrowRight,
   AiOutlineArrowUp,
 } from "react-icons/ai";
+import { BsBoxSeam, BsBuilding } from "react-icons/bs";
+
+import { TbCurrencyPeso } from "react-icons/tb";
 
 const Dashboard = () => {
   const inventoryItems = [
@@ -97,7 +97,6 @@ const Dashboard = () => {
     },
   ];
 
-  const totalItems = inventoryItems.length;
   const totalCategories = new Set(inventoryItems.map((item) => item.category))
     .size;
   const totalSuppliers = new Set(inventoryItems.map((item) => item.supplier))
@@ -163,96 +162,134 @@ const Dashboard = () => {
     { id: 3, item: "Gloves", quantity: 2000, date: "2023-10-03" },
     { id: 4, item: "Ventilators", quantity: 10, date: "2023-10-04" },
   ];
+  const totalItems = inventoryItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
+  const totalValue = inventoryItems.reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    0
+  );
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiOutlineAppstore className="w-8 h-8 text-blue-500 mr-4" />
-          <div>
-            <h3 className="text-lg font-semibold">Total Items</h3>
-            <p className="text-2xl">{totalItems}</p>
+        {/* First Card - Inventory Overview */}
+        <div className="bg-white p-4 rounded-lg shadow-sm">
+          <h3 className="text-lg font-semibold mb-3 border-b pb-2">
+            Inventory Summary
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between bg-blue-50 p-3 rounded">
+              <div className="flex items-center">
+                <BsBoxSeam className="ml-2 w-6 h-6 text-blue-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Total Items</p>
+                  <p className="text-xl font-bold">
+                    {totalItems.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between bg-green-50 p-3 rounded">
+              <div className="flex items-center">
+                <TbCurrencyPeso className="w-8 h-8 text-green-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Total Value</p>
+                  <p className="text-xl font-bold">₱ {123}</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between bg-indigo-50 p-3 rounded">
+              <div className="flex items-center">
+                <BsBuilding className="ml-1 w-6 h-6 text-indigo-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Suppliers</p>
+                  <p className="text-xl font-bold">{12}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiOutlineTags className="w-8 h-8 text-green-500 mr-4" />
-          <div>
-            <h3 className="text-lg font-semibold">Total Categories</h3>
-            <p className="text-2xl">{totalCategories}</p>
+        {/* Second Card - Stock Levels */}
+        <div className="bg-white p-4 rounded-lg shadow-sm">
+          <h3 className="text-lg font-semibold mb-3 border-b pb-2">
+            Stock Levels
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between bg-red-50 p-3 rounded">
+              <div className="flex items-center">
+                <AiOutlineArrowDown className="w-6 h-6 text-red-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Low Stock</p>
+                  <p className="text-xl font-bold">{lowStockItems}</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between bg-yellow-50 p-3 rounded">
+              <div className="flex items-center">
+                <AiOutlineArrowRight className="w-6 h-6 text-yellow-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Moderate</p>
+                  <p className="text-xl font-bold">{moderateStockItems}</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between bg-green-50 p-3 rounded">
+              <div className="flex items-center">
+                <AiOutlineArrowUp className="w-6 h-6 text-green-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">High Stock</p>
+                  <p className="text-xl font-bold">{highStockItems}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiOutlineTeam className="w-8 h-8 text-yellow-500 mr-4" />
-          <div>
-            <h3 className="text-lg font-semibold">Total Suppliers</h3>
-            <p className="text-2xl">{totalSuppliers}</p>
+        {/* Third Card - ABC Analysis */}
+        <div className="bg-white p-4 rounded-lg shadow-sm">
+          <h3 className="text-lg font-semibold mb-3 border-b pb-2">
+            ABC Analysis
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between bg-blue-50 p-3 rounded">
+              <div className="flex items-center">
+                <AiFillProduct className="w-6 h-6 text-blue-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Category A</p>
+                  <p className="text-xl font-bold">
+                    {Math.ceil(inventoryItems.length * 0.2)}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between bg-purple-50 p-3 rounded">
+              <div className="flex items-center">
+                <AiFillProduct className="w-6 h-6 text-purple-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Category B</p>
+                  <p className="text-xl font-bold">
+                    {Math.ceil(inventoryItems.length * 0.3)}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-between bg-gray-50 p-3 rounded">
+              <div className="flex items-center">
+                <AiFillProduct className="w-6 h-6 text-gray-600" />
+                <div className="ml-3">
+                  <p className="text-sm text-gray-600">Category C</p>
+                  <p className="text-xl font-bold">
+                    {Math.floor(inventoryItems.length * 0.5)}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiOutlineArrowDown className="w-8 h-8 text-red-500 mr-4" />{" "}
-          {/* Low stock icon */}
-          <div>
-            <h3 className="text-lg font-semibold text-red-600">Low Stock</h3>
-            <p className="text-2xl">{lowStockItems}</p>
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiOutlineArrowRight className="w-8 h-8 text-yellow-500 mr-4" />{" "}
-          {/* Moderate stock icon */}
-          <div>
-            <h3 className="text-lg font-semibold text-yellow-600">
-              Moderate Stock
-            </h3>
-            <p className="text-2xl">{moderateStockItems}</p>
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiOutlineArrowUp className="w-8 h-8 text-green-500 mr-4" />{" "}
-          {/* High stock icon */}
-          <div>
-            <h3 className="text-lg font-semibold text-green-600">High Stock</h3>
-            <p className="text-2xl">{highStockItems}</p>
-          </div>
-        </div>
-      </div>
+      {/* asdasdas */}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiFillProduct className="w-8 h-8 text-blue-500 mr-4" />{" "}
-          <div>
-            <h3 className="text-lg font-semibold text-blue-600">A Category</h3>
-            <p className="text-2xl">
-              {inventoryItems.filter((item) => item.quantity > 200).length}
-            </p>
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiFillProduct className="w-8 h-8 text-purple-500 mr-4" />{" "}
-          <div>
-            <h3 className="text-lg font-semibold text-purple-600">
-              B Category
-            </h3>
-            <p className="text-2xl">
-              {
-                inventoryItems.filter(
-                  (item) => item.quantity > 100 && item.quantity <= 200
-                ).length
-              }
-            </p>
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded shadow flex items-center">
-          <AiFillProduct className="w-8 h-8 text-gray-500 mr-4" />{" "}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-600">C Category</h3>
-            <p className="text-2xl">
-              {inventoryItems.filter((item) => item.quantity <= 100).length}
-            </p>
-          </div>
-        </div>
-      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="bg-white p-4 rounded shadow">
           <h2 className="text-xl font-bold mb-4">Supplies Delivered</h2>

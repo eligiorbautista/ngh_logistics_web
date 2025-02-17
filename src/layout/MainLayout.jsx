@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Home,
   Box,
@@ -29,6 +29,7 @@ const MainLayout = () => {
   const notificationMenuRef = useRef(null);
   const searchRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -154,9 +155,22 @@ const MainLayout = () => {
                 <li key={index} className="mb-2">
                   <Link
                     to={item.path}
-                    className="flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                    className={`flex items-center p-2 rounded-lg transition-all duration-200 
+            ${
+              location.pathname === item.path
+                ? "bg-blue-50 text-[#1F3987] border-l-4 border-[#1F3987] font-medium"
+                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            }`}
                   >
-                    {item.icon}
+                    <span
+                      className={`${
+                        location.pathname === item.path
+                          ? "text-[#1F3987]"
+                          : "text-gray-500"
+                      } mr-3`}
+                    >
+                      {item.icon}
+                    </span>
                     <span>{item.text}</span>
                   </Link>
                 </li>
